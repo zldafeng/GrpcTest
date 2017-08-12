@@ -15,6 +15,6 @@ echo "Hello World !"
 
 SET CURRENTDIR=%~dp0
 ::protoc --go_out=. *.proto
-protoc -I . --go_out=plugins=grpc:. ./hello/hello.proto
+protoc -I . --go_out=plugins=grpc:. proto/hello/hello.proto
 :: protoc --go_out="%CURRENTDIR%..\" *.proto
 pause

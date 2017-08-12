@@ -9,11 +9,12 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
+	"log"
 )
 
 const (
 	// Address gRPC服务地址
-	Address = "127.0.0.1:50052"
+	Address = "127.0.0.1:8888"
 )
 
 // 定义helloService并实现约定的接口
@@ -35,13 +36,10 @@ func main() {
 	if err != nil {
 		grpclog.Fatalf("Failed to listen: %v", err)
 	}
-
 	// 实例化grpc Server
 	s := grpc.NewServer()
-
 	// 注册HelloService
 	pb.RegisterHelloServer(s, HelloService)
-
-	grpclog.Println("Listen on " + Address)
-	s.Serve(listen)
+	go s.Serve(listen)
+	log.Println("Listen on 4 " + Address)
 }

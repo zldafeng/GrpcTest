@@ -5,10 +5,11 @@ import (
 	"google.golang.org/grpc/grpclog"
 	pb "GrpcTest/proto/hello"
 	"context"
+	"log"
 )
 
 const (
-	Address = "127.0.0.1:50052"
+	Address = "127.0.0.1:8888"
 )
 
 func main() {
@@ -25,13 +26,10 @@ func main() {
 	c := pb.NewHelloClient(conn)
 
 	// 调用方法
-	reqBody :=new(pb.HelloRequest)
-	reqBody.Name = "gRPC"
-
-	r, err := c.Sayhello(context.Background(),reqBody)
+	req := &pb.HelloRequest{Name: "gRPC"}
+	r, err := c.SayHello(context.Background(),req)
 	if err !=nil{
 		grpclog.Fatalln(err)
 	}
-
-	grpclog.Println(r.Message)
+	log.Println(r.Message)
 }
